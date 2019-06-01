@@ -1,0 +1,32 @@
+{
+   "variables": {
+    "SCALEWAY_ORGANIZATION": "{{env `SCALEWAY_ORGANIZATION`}}",
+    "api_token": "{{env `SCW_TOKEN`}}",
+    "image": "9444d178-2285-4842-ac35-5e86eda8da91",
+    "ssh_private": "{{env `HOME`}}/.ssh/id_rsa"
+  },
+
+
+  "builders": [
+    {
+      "api_access_key": "{{ user `SCALEWAY_ORGANIZATION` }}",
+      "api_token": "{{ user `api_token` }}",
+      "server_name": "remzer",
+      "image_name": "remzer-image",
+      "snapshot_name": "remzer-snapshot",
+      "image": "{{ user `image` }}",
+      "region": "ams1",
+      "commercial_type": "START1-S",
+      "ssh_private_key_file": "{{ user `ssh_private` }}",
+      "type": "scaleway",
+      "ssh_username": "root"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": ["sync"]
+    }
+
+  ]
+}
